@@ -8,13 +8,12 @@ canvas.width = 200;
 
 stretch(canvas);
 
-var lines = [
+var starting_lines = [
     [0, 0, 200, 200]
 ];
+var lines = starting_lines;
 
 drawLines();
-
-window.addEventListener('click', downTheRabbitHole);
 
 function rotate90(line) {
     return [line[0], line[3], line[2], line[1]];
@@ -37,15 +36,22 @@ function downTheRabbitHole() {
         updated_lines = updated_lines.concat(halfs(rotated));
     });
     lines = updated_lines;
-
-    drawLines();
 }
 
 function drawLines() {
-    ctx.beginPath;
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.beginPath();
     lines.forEach(function(line) {
         ctx.moveTo(line[0], line[1]);
         ctx.lineTo(line[2], line[3]);
     });
     ctx.stroke();
 }
+
+window.setInterval(function() {
+    downTheRabbitHole();
+    if (lines.length > 10000) {
+        lines = starting_lines;
+    }
+    drawLines();
+}, 600);
