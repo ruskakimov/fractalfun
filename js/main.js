@@ -9,7 +9,7 @@ canvas.width = 200;
 stretch(canvas);
 
 var lines = [
-    [0, 100, 200, 100]
+    [0, 0, 200, 200]
 ];
 
 drawLines();
@@ -17,12 +17,12 @@ drawLines();
 window.addEventListener('click', downTheRabbitHole);
 
 function rotate90(line) {
-    return [line[1], line[0], line[3], line[2]];
+    return [line[0], line[3], line[2], line[1]];
 }
 
 function halfs(line) {
-    var mid_x = Math.abs(line[0] - line[2]) / 2;
-    var mid_y = Math.abs(line[1] - line[3]) / 2;
+    var mid_x = (line[0] + line[2]) / 2;
+    var mid_y = (line[1] + line[3]) / 2;
     return [
         [line[0], line[1], mid_x, mid_y],
         [mid_x, mid_y, line[2], line[3]]
