@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "stretch-canvas": "^0.3.4"
+  },
   "devDependencies": {
-    "browserify": "^16.1.1"
+    "browserify": "^16.1.1",
+    "concurrently": "^3.5.1",
+    "live-server": "^1.2.0",
+    "watchify": "^3.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "$(npm bin)/browserify js/main.js -o bundle.js"
+    "build": "$(npm bin)/browserify js/main.js -o bundle.js",
+    "dev": "concurrently --kill-others \"$(npm bin)/watchify js/main.js -o bundle.js\" \"$(npm bin)/live-server\""
   },
   "author": "Rustem Kakimov <ruskakimov@gmail.com>",
   "license": "ISC"
