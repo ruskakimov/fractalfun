@@ -53,6 +53,7 @@ function downTheRabbitHole(lines) {
 }
 
 function drawLines(lines) {
+    ctx.strokeStyle = 'red';
     ctx.lineWidth = stretch.unstretchCoordinates(1)[0];
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.beginPath();
