@@ -1,4 +1,4 @@
-var stretch = require('stretch-canvas').stretch;
+var stretch = require('stretch-canvas');
 
 var canvas = document.getElementById('fractalfun');
 var ctx = canvas.getContext('2d');
@@ -6,11 +6,17 @@ var ctx = canvas.getContext('2d');
 canvas.height = 200;
 canvas.width = 200;
 
-stretch(canvas);
+stretch.stretch(canvas);
 
-var ITERATION_COUNT = 5;
+var ITERATION_COUNT = 7;
+var PADDING = 10;
+var a = 200 - PADDING * 2;
+var midx = PADDING + a / 2;
+var midy = 200 - PADDING - a * Math.sqrt(3) / 2;
 var starting_lines = [
-    [0, 100, 200, 100]
+    [0 + PADDING, 200 - PADDING, 200 - PADDING, 200 - PADDING],
+    [0 + PADDING, 200 - PADDING, midx, midy],
+    [midx, midy, 200 - PADDING, 200 - PADDING],
 ];
 
 function koch(line) {
@@ -46,6 +52,7 @@ function downTheRabbitHole(lines) {
 }
 
 function drawLines(lines) {
+    ctx.lineWidth = stretch.unstretchCoordinates(1)[0];
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.beginPath();
     lines.forEach(function(line) {
