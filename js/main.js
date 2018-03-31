@@ -79,4 +79,4 @@ window.setInterval(function() {
         forward = !forward;
         current = forward ? 0 : iterations.length - 1;
     }
-}, 400);
+}, 80);
