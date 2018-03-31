@@ -8,10 +8,10 @@ canvas.width = 200;
 
 stretch(canvas);
 
+var ITERATION_COUNT = 5;
 var starting_lines = [
     [0, 100, 200, 100]
 ];
-var lines = starting_lines;
 
 function koch(line) {
     const xd = line[2] - line[0];
@@ -37,15 +37,15 @@ function koch(line) {
     ];
 }
 
-function downTheRabbitHole() {
+function downTheRabbitHole(lines) {
     var updated_lines = [];
     lines.forEach(function(line) {
         updated_lines = updated_lines.concat(koch(line));
     });
-    lines = updated_lines;
+    return updated_lines;
 }
 
-function drawLines() {
+function drawLines(lines) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.beginPath();
     lines.forEach(function(line) {
@@ -55,16 +55,20 @@ function drawLines() {
     ctx.stroke();
 }
 
-drawLines();
+var iterations = [starting_lines];
+for (var i = 1; i < ITERATION_COUNT; i++) {
+    var iter_lines = downTheRabbitHole(iterations[i - 1]);
+    iterations.push(iter_lines);
+}
 
-var count = 0;
+var current = 0;
+var forward = true;
 
 window.setInterval(function() {
-    if (count >= 5) {
-        lines = starting_lines;
-        count = 0;
+    drawLines(iterations[current]);
+    current += forward ? 1 : -1;
+    if (current < 0 || current >= iterations.length) {
+        forward = !forward;
+        current = forward ? 0 : iterations.length - 1;
     }
-    downTheRabbitHole();
-    drawLines();
-    count++;
-}, 600);
+}, 400);
