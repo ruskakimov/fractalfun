@@ -32,7 +32,6 @@ function downTheRabbitHole() {
     var updated_lines = [];
     lines.forEach(function(line) {
         var rotated = rotate90(line);
-        updated_lines = updated_lines.concat(halfs(line));
         updated_lines = updated_lines.concat(halfs(rotated));
     });
     lines = updated_lines;
