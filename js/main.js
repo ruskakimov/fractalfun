@@ -9,30 +9,40 @@ canvas.width = 200;
 stretch(canvas);
 
 var starting_lines = [
-    [0, 0, 200, 200]
+    [0, 100, 200, 100]
 ];
 var lines = starting_lines;
 
 drawLines();
 
-function rotate90(line) {
-    return [line[0], line[3], line[2], line[1]];
-}
+function koch(line) {
+    const xd = line[2] - line[0];
+    const x1 = line[0] + xd / 3;
+    const x3 = x1      + xd / 3;
+    const yd = line[3] - line[1];
+    const y1 = line[1] + yd / 3;
+    const y3 = y1      + yd / 3;
 
-function halfs(line) {
-    var mid_x = (line[0] + line[2]) / 2;
-    var mid_y = (line[1] + line[3]) / 2;
+    const midx = line[0] + xd / 2;
+    const midy = line[1] + yd / 2;
+
+    const k = Math.sqrt(3) / 2;
+
+    const x2 = midx + k * yd;
+    const y2 = midy + k * xd;
+
     return [
-        [line[0], line[1], mid_x, mid_y],
-        [mid_x, mid_y, line[2], line[3]]
+        [line[0], line[1], x1,      y1],
+        [x1,      y1,      x2,      y2],
+        [x2,      y2,      x3,      y3],
+        [x3,      y3,      line[2], line[3]],
     ];
 }
 
 function downTheRabbitHole() {
     var updated_lines = [];
     lines.forEach(function(line) {
-        var rotated = rotate90(line);
-        updated_lines = updated_lines.concat(halfs(rotated));
+        updated_lines = updated_lines.concat(koch(line));
     });
     lines = updated_lines;
 }
