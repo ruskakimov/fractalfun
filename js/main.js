@@ -13,8 +13,6 @@ var starting_lines = [
 ];
 var lines = starting_lines;
 
-drawLines();
-
 function koch(line) {
     const xd = line[2] - line[0];
     const x1 = line[0] + xd / 3;
@@ -28,8 +26,8 @@ function koch(line) {
 
     const k = Math.sqrt(3) / 2;
 
-    const x2 = midx + k * yd;
-    const y2 = midy + k * xd;
+    const x2 = midx + k * yd / 3;
+    const y2 = midy - k * xd / 3;
 
     return [
         [line[0], line[1], x1,      y1],
@@ -57,10 +55,16 @@ function drawLines() {
     ctx.stroke();
 }
 
+drawLines();
+
+var count = 0;
+
 window.setInterval(function() {
-    downTheRabbitHole();
-    if (lines.length > 10000) {
+    if (count >= 5) {
         lines = starting_lines;
+        count = 0;
     }
+    downTheRabbitHole();
     drawLines();
+    count++;
 }, 600);
