@@ -9,14 +9,15 @@ canvas.width = 200;
 stretch.stretch(canvas);
 
 var ITERATION_COUNT = 7;
-var PADDING = 10;
-var a = 200 - PADDING * 2;
-var midx = PADDING + a / 2;
-var midy = 200 - PADDING - a * Math.sqrt(3) / 2;
+var a = 160;
+var x0 = (200 - a) / 2;
+var y0 = 100 + a / 2 / Math.sqrt(3);
+var midx = x0 + a / 2;
+var midy = y0 - a * Math.sqrt(3) / 2;
 var starting_lines = [
-    [0 + PADDING, 200 - PADDING, 200 - PADDING, 200 - PADDING],
-    [0 + PADDING, 200 - PADDING, midx, midy],
-    [midx, midy, 200 - PADDING, 200 - PADDING],
+    [x0 + a, y0,   x0,     y0],
+    [x0,     y0,   midx,   midy],
+    [midx,   midy, x0 + a, y0],
 ];
 
 function koch(line) {
